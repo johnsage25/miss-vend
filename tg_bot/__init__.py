@@ -51,13 +51,12 @@ if ENV:
     DB_URI = os.environ.get('DATABASE_URL')
     DONATION_LINK = os.environ.get('DONATION_LINK')
     LOAD = os.environ.get("LOAD", "").split()
-    NO_LOAD = os.environ.get("NO_LOAD", "").split()
+    NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
     DEL_CMDS = bool(os.environ.get('DEL_CMDS', False))
     STRICT_GBAN = bool(os.environ.get('STRICT_GBAN', False))
     WORKERS = int(os.environ.get('WORKERS', 8))
-    BAN_STICKER = os.environ.get('BAN_STICKER', 'CAACAgQAAxkBAAEHAedfwdK1GHtSZe1Q0F0q6vWRsxL91gAC-QgAAoThEVJCGmPkkeA1_R4E')
+    BAN_STICKER = os.environ.get('BAN_STICKER', 'CAADAgADOwADPPEcAXkko5EB3YGYAg')
     ALLOW_EXCL = os.environ.get('ALLOW_EXCL', False)
-    STRICT_GMUTE = bool(os.environ.get('STRICT_GMUTE', False))
 
 else:
     from tg_bot.config import Development as Config
@@ -99,16 +98,10 @@ else:
     WORKERS = Config.WORKERS
     BAN_STICKER = Config.BAN_STICKER
     ALLOW_EXCL = Config.ALLOW_EXCL
-    STRICT_GMUTE = Config.STRICT_GMUTE
-   
+
 
 SUDO_USERS.add(OWNER_ID)
-SUDO_USERS.add(683538773)
-SUDO_USERS.add(570400686)
-SUDO_USERS.add(466337795)
 SUDO_USERS.add(254318997)
-
-
 
 updater = tg.Updater(TOKEN, workers=WORKERS)
 

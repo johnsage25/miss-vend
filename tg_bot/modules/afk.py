@@ -22,7 +22,7 @@ def afk(bot: Bot, update: Update):
         reason = ""
 
     sql.set_afk(update.effective_user.id, reason)
-    update.effective_message.reply_text("{} is away from the keyboard ! ".format(update.effective_user.first_name))
+    update.effective_message.reply_text("{} is now AFK!".format(update.effective_user.first_name))
 
 
 @run_async
@@ -34,14 +34,14 @@ def no_longer_afk(bot: Bot, update: Update):
 
     res = sql.rm_afk(user.id)
     if res:
-        update.effective_message.reply_text("{} Not far from the keyboard now !".format(update.effective_user.first_name))
+        update.effective_message.reply_text("{} is no longer AFK!".format(update.effective_user.first_name))
 
 
 @run_async
 def reply_afk(bot: Bot, update: Update):
     message = update.effective_message  # type: Optional[Message]
-    if message.entities and message.parse_entities([MessageEntity.TEXT_MENTION, MessageEntity.MENTION]):
-        entities = message.parse_entities([MessageEntity.TEXT_MENTION, MessageEntity.MENTION])
+    entities = message.parse_entities([MessageEntity.TEXT_MENTION, MessageEntity.MENTION])
+    if message.entities and entities:
         for ent in entities:
             if ent.type == MessageEntity.TEXT_MENTION:
                 user_id = ent.user.id
@@ -59,12 +59,17 @@ def reply_afk(bot: Bot, update: Update):
                 return
 
             if sql.is_afk(user_id):
-                user = sql.check_afk_status(user_id)
-                if not user.reason:
-                    res = "{} is away from the keyboard ! reason :\n{} ".format(fst_name)
-                else:
-                    res = "{} is away from the keyboard ! reason :\n{}. ".format(fst_name, user.reason)
-                message.reply_text(res)
+                valid, reason = sql.check_afk_status(user_id)
+                if valid:
+                    if not reason:
+                        res = "{} is AFK!".format(fst_name)
+                    else:
+                        res = "{} is AFK! says its because of:\n{}".format(fst_name, reason)
+                    message.reply_text(res)
+
+
+def __gdpr__(user_id):
+    sql.rm_afk(user_id)
 
 
 __help__ = """
