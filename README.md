@@ -1,4 +1,4 @@
-# [Miss Rose Bot](https://t.me/MissRose_bot)
+# [Miss Joy VendPay Bot](https://t.me/MissRose_bot)
 
 ### Deploy
 
@@ -14,4 +14,4 @@
 
 ## Profile
 
-![Rose Profile](https://telegra.ph/file/718d48493d1fb11197d8b.jpg)
+![Rose Profile](https://raw.githubusercontent.com/pejonic/miss-vend/main/vend_girl.png)
